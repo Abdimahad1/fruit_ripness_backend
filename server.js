@@ -25,17 +25,10 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use(express.urlencoded({
-  extended: true,
-}));
-
-// =====================================================
-// DEBUG ENV
-// =====================================================
-
-console.log(
-  "GEMINI API KEY:",
-  process.env.GEMINI_API_KEY
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
 );
 
 // =====================================================
@@ -47,7 +40,7 @@ app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
     message:
-      "Fruit Ripeness AI Backend Running",
+      "Fruit Ripeness AI Backend Running Successfully",
   });
 
 });
@@ -85,11 +78,13 @@ app.use((
   next
 ) => {
 
-  console.log(
+  console.error(
     "GLOBAL SERVER ERROR:"
   );
 
-  console.log(err);
+  console.error(
+    err.message
+  );
 
   res.status(500).json({
     success: false,
